@@ -34,6 +34,7 @@ class VNCConnection {
     func connect(to ip: String, port: UInt16, completion: @escaping (Result<ServerInitInfo, Error>) -> Void) {
         self.host = ip
         self.port = port
+        self.isHandshakeCompleted = false
 
         let endpoint = NWEndpoint.hostPort(host: NWEndpoint.Host(ip), port: NWEndpoint.Port(rawValue: port)!)
         let parameters = NWParameters.tcp
