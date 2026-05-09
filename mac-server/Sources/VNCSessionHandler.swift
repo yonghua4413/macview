@@ -71,9 +71,19 @@ class VNCSessionHandler {
         let result = Data([0x00, 0x00, 0x00, 0x00])
         connection.send(content: result, completion: .contentProcessed { [weak self] error in
             if error == nil {
-                self?.sendServerInit()
+                self?.receiveClientInit()
             }
         })
+    }
+
+    private func receiveClientInit() {
+        connection.receive(minimumIncompleteLength: 1, maximumLength: 1) { [weak self] data, _, _, error in
+            guard let self = self, data != nil, error == nil else {
+                self?.onClose?()
+                return
+            }
+            self.sendServerInit()
+        }
     }
 
     private func sendServerInit() {
@@ -221,8 +231,8 @@ class VNCSessionHandler {
         data.append(contentsOf: withUnsafeBytes(of: UInt16(screenInfo.width).bigEndian) { Data($0) })
         data.append(contentsOf: withUnsafeBytes(of: UInt16(screenInfo.height).bigEndian) { Data($0) })
 
+        // Encoding type 0 = Raw. Raw rectangles are followed directly by pixel bytes (no length field).
         data.append(contentsOf: withUnsafeBytes(of: UInt32(0).bigEndian) { Data($0) })
-        data.append(contentsOf: withUnsafeBytes(of: UInt32(frame.count).bigEndian) { Data($0) })
         data.append(frame)
 
         connection.send(content: data, completion: .contentProcessed { [weak self] error in
