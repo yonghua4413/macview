@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jungle Vanguard - Web Run & Gun</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero-panel" aria-label="游戏区域">
+        <div class="title-row">
+          <div>
+            <p class="eyebrow">Original retro homage</p>
+            <h1>Jungle Vanguard</h1>
+          </div>
+          <button id="soundToggle" class="sound-toggle" type="button" aria-pressed="false">开启音乐</button>
+        </div>
+        <canvas id="game" width="960" height="540" aria-label="横版射击游戏画布"></canvas>
+        <div class="mobile-controls" aria-label="移动端触控">
+          <button data-action="left" type="button">◀</button>
+          <button data-action="right" type="button">▶</button>
+          <button data-action="jump" type="button">跳</button>
+          <button data-action="fire" type="button">射</button>
+        </div>
+      </section>
+      <aside class="guide" aria-label="玩法说明">
+        <h2>第一关：丛林前线</h2>
+        <p>
+          这是一个使用原创像素角色、原创合成器音乐和程序绘制场景制作的复古横版射击关卡，保留了经典 8-bit 跑射游戏的节奏，但不包含受版权保护的角色、美术或原曲素材。
+        </p>
+        <dl>
+          <div><dt>移动</dt><dd>A / D 或 ← / →</dd></div>
+          <div><dt>跳跃</dt><dd>W / ↑ / 空格</dd></div>
+          <div><dt>射击</dt><dd>J / K / Enter</dd></div>
+          <div><dt>目标</dt><dd>穿过丛林、击败碉堡核心</dd></div>
+        </dl>
+        <p class="tip">提示：浏览器通常要求先点击“开启音乐”或画布后才允许播放音频。</p>
+      </aside>
+    </main>
+    <script type="module" src="./src/game.js"></script>
+  </body>
+</html>
